@@ -21,7 +21,7 @@ Didesain khusus untuk aplikasi modern yang membutuhkan performa tinggi, pustaka 
 Unduh pustaka ini ke proyek Go Anda menggunakan perintah:
 
 ```bash
-go get [github.com/jasakode/i18n](https://github.com/jasakode/i18n)
+go get github.com/jasakode/i18n
 ```
 
 
