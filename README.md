@@ -22,3 +22,23 @@ Unduh pustaka ini ke proyek Go Anda menggunakan perintah:
 
 ```bash
 go get [github.com/jasakode/i18n](https://github.com/jasakode/i18n)
+```
+
+
+## Dictionary
+```json
+{
+    "app": {
+        "welcome": "Hello {Name}",
+    }
+}
+```
+
+```go
+type People struct {
+    Name string
+}
+john := People{ Name: "John" }
+locale := i18n.New()
+locale.T("app.welcome", i18n.LocaleAR, john) // John مرحبًا
+```
