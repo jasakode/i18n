@@ -42,3 +42,6 @@ john := People{ Name: "John" }
 locale := i18n.New()
 locale.T("app.welcome", i18n.LocaleAR, john) // John مرحبًا
 ```
+
+git tag v1.0.0
+git push origin v1.0.0
