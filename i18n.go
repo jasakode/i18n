@@ -3,6 +3,11 @@
 // It leverages Go's native embed.FS to bundle translation files into a single binary.
 package i18n
 
+import (
+	"database/sql/driver"
+	"fmt"
+)
+
 // Locale defines a string type for internationalization (i18n) settings.
 // It adheres to the IETF BCP 47 language tags standard, which builds upon
 // the ISO 639-1 alpha-2 language codes and handles script/region variations
@@ -214,3 +219,37 @@ func (l *Locale) Parse(input string) bool {
 	*l = res
 	return true // Sukses parse dan nilai berhasil diperbarui
 }
+
+// ==================================================================================================
+// utility for locale
+// ==================================================================================================
+
+// Value mengimplementasikan interface driver.Valuer untuk mengonversi tipe Locale
+// menjadi string yang dapat disimpan ke dalam database oleh GORM.
+func (l Locale) Value() (driver.Value, error) {
+	// Mengembalikan nilai string murni ke driver database
+	return string(l), nil
+}
+
+// Scan mengimplementasikan interface sql.Scanner untuk membaca data dari database
+// dan memasukkannya kembali ke dalam tipe kustom Locale.
+func (l *Locale) Scan(value any) error {
+	if value == nil {
+		*l = ""
+		return nil
+	}
+
+	// Memastikan data yang dibaca dari database bisa dikonversi ke string atau slice byte
+	switch v := value.(type) {
+	case string:
+		*l = Locale(v)
+		return nil
+	case []byte:
+		*l = Locale(string(v))
+		return nil
+	default:
+		return fmt.Errorf("gagal memindai tipe %T ke dalam Locale", value)
+	}
+}
+
+// ==================================================================================================

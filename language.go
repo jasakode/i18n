@@ -11,6 +11,14 @@ var LanguageAR Language = Language{
 	NativeName:  "العربية",
 }
 
+var LanguageAZ Language = Language{
+	ID:          LocaleAZ,
+	Flag:        "",
+	Direction:   DirectionRTL,
+	EnglishName: "",
+	NativeName:  "",
+}
+
 var Languages []Language = []Language{
 	LanguageAR,
 }
